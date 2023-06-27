@@ -130,7 +130,7 @@ contract GasStationV2 is ConfirmedOwner, Pausable, KeeperCompatibleInterface {
      * @notice Send funds to the addresses provided
    * @param needsFunding the list of addresses to fund (addresses must be pre-approved)
    */
-    function topUpExact(address[] memory needsFunding) public whenNotPaused {
+    function topUpExact(address[] memory needsFunding) internal whenNotPaused {
         uint256 minWaitPeriodSeconds = MinWaitPeriodSeconds;
         Target memory target;
         for (uint256 idx = 0; idx < needsFunding.length; idx++) {
