@@ -23,7 +23,7 @@ def test_everything(admin, gas_station, upkeep_caller, deployers, bots):
     ###  stuf
     gas_station.addRecipients(deployers, deploy_min, deploy_topup, {"from": admin})
     gas_station.addRecipients(bots, bot_min, bot_topup, {"from": admin})
-    assert len(gas_station.getRecipients()) == len(bots) + len(deployers), "Watch list is wrong length"
+    assert len(gas_station.getRecipientsList()) == len(bots) + len(deployers), "Watch list is wrong length"
     (ready, recipients) = gas_station.checkUpkeep(0)
     assert not ready, "Ready with no gas"
     admin.transfer(gas_station.address, full_topup*2)
@@ -55,9 +55,6 @@ def test_everything(admin, gas_station, upkeep_caller, deployers, bots):
     # Test min wait period
 
     bots[0].transfer(admin.address, bots[0].balance())
-    (ready, recipients) = gas_station.checkUpkeep(0)
-    assert not ready, "Ready with no minWait"
-    gas_station.performUpkeep(recipients, {"from": upkeep_caller})
     (ready, recipients) = gas_station.checkUpkeep(0)
     assert not ready, "reports ready before minwait"
     tx = gas_station.performUpkeep(recipients, {"from": upkeep_caller})
