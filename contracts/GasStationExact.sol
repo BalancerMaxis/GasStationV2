@@ -30,7 +30,6 @@ contract GasStationV2 is ConfirmedOwner, Pausable, KeeperCompatibleInterface {
     event MinWaitPeriodUpdated(uint256 oldMinWaitPeriod, uint256 newMinWaitPeriod);
     event ERC20Swept(address indexed token, address payee, uint256 amount);
     event RecipientAdded(address recipient, uint96 minBalanceWei, uint96 topUpToAmountWei, bool update);
-
     event RecipientRemoved(address recipient);
     event RemoveNonexistentRecipient(address recipient);
 
@@ -98,7 +97,7 @@ contract GasStationV2 is ConfirmedOwner, Pausable, KeeperCompatibleInterface {
    * @return list of addresses that are underfunded
    */
     function getUnderfundedAddresses() public view returns (address[] memory) {
-        address[] memory watchList = getRecipients();
+        address[] memory watchList = getRecipientsList();
         address[] memory needsFunding = new address[](watchList.length);
         uint256 count = 0;
         uint256 minWaitPeriod = MinWaitPeriodSeconds;
@@ -241,7 +240,7 @@ contract GasStationV2 is ConfirmedOwner, Pausable, KeeperCompatibleInterface {
     }
 
 
-    function getRecipients() public view returns (address[] memory) {
+    function getRecipientsList() public view returns (address[] memory) {
         uint256 len = WatchList.length();
         address[] memory recipients = new address[](len);
         for (uint i; i < len; i++) {
