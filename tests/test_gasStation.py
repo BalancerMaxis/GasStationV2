@@ -9,7 +9,7 @@ def drain_addresses(to_drain, dest):
         account.transfer(dest, account.balance())
         
     
-def test_everything(admin, gas_station, upkeep_caller, deployers, bots):\
+def test_everything(admin, gas_station, upkeep_caller, deployers, bots):
     ## Drain recipients
     drain_addresses(deployers, admin.address)
     drain_addresses(bots, admin.address)
