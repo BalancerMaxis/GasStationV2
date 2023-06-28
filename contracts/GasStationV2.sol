@@ -12,6 +12,7 @@ import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 /**
  * @title The GasStationV2 Contract
  * @author 0xtritium.eth
+ * @author Adapted from the GasStationExact contract by Gosuto.eth
  * @notice Custom implementation of Chainlink's EthBalanceMonitor. Ether
  * transferred is not limited anymore by topUpAmountWei, and a sweep function
  * makes it possible to retrieve ERC-20 tokens.  Allows better recipient management.
