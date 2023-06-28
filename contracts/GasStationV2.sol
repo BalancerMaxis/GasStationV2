@@ -12,10 +12,10 @@ import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 /**
  * @title The GasStationV2 Contract
  * @author 0xtritium.eth
- * @author Adapted from the GasStationExact contract by Gosuto.eth
+ * @author Adapted from the GasStationExact contract by Gosuto.eth: https://github.com/Badger-Finance/badger-infra/blob/main/contracts/refillers/GasStationExact.sol
  * @notice Custom implementation of Chainlink's EthBalanceMonitor. Ether
- * transferred is not limited anymore by topUpAmountWei, and a sweep function
- * makes it possible to retrieve ERC-20 tokens.  Allows better recipient management.
+ * transferred is not limited anymore by topUpAmountWei, the watchlist can be added/removed from, and a sweep function
+ * makes it possible to retrieve ERC-20 tokens.  Variables were renamed to make Allows better recipient management better.
  * see https://docs.chain.link/chainlink-automation/utility-contracts/
  */
 contract GasStationV2 is ConfirmedOwner, Pausable, KeeperCompatibleInterface {
