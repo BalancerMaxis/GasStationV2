@@ -70,9 +70,19 @@ def test_everything(admin, gas_station, upkeep_caller, deployers, bots):
     deployers[2].transfer(admin, .9e18)
     bots[1].transfer(admin, (1.0001e18))
     (ready, recipients) = gas_station.checkUpkeep(0)
-    assert ready, "Multiple recipents need gas and keeper not ready"
+    assert ready, "Multiple recipients need gas and keeper not ready"
     tx = gas_station.performUpkeep(recipients, {"from": upkeep_caller})
     for bot in bots:
         assert bot.balance() == bot_topup, f"{bot.address} has unexpected balance {bot.balance()}"
     for deployer in deployers:
         assert deployer.balance() == deploy_topup, f"{deployer.address} has unexpected balance {deployer.balance()}"
+    chain.sleep(1000)
+    chain.mine()
+    ## test swap plans/tinker with list
+    drain_addresses(bots, admin)
+    drain_addresses(deployers, admin)
+    ## Remove
+
+    gas_station.removeRecipients(bots[0], deployers[0], deployers[1])
+    assert gas_station.getRecipientsList().length ==  len(bots) + len(deployers) - 3, "wrong recipient count after rm"
+

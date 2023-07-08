@@ -8,5 +8,5 @@ def deploy(account, chain="mainnet"):
     GasStationV2.deploy(keeper, 60*60*8, {"from": account})
     gs = GasStationV2[len(GasStationV2)-1]
     GasStationV2.publish_source(gs)
-    gs.transferOwnership(r.multisigs.maxi_ops)
+    gs.transferOwnership(r.multisigs.lm)
 
